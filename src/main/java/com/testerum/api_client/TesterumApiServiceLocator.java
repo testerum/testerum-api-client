@@ -65,5 +65,4 @@ public class TesterumApiServiceLocator {
 
         return objectMapper;
     }
-
 }
