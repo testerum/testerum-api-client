@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.guava.GuavaModule;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.module.afterburner.AfterburnerModule;
+import com.testerum.api_client.api.demo.DemoApi;
+import com.testerum.api_client.api.features.FeatureApi;
 import com.testerum.api_client.api.project.ProjectApi;
 import com.testerum.model.home.CreateProjectRequest;
 import com.testerum.model.home.Project;
@@ -20,6 +22,7 @@ public class TesterumApiServiceLocator {
 
     private String host = "http://localhost";
     private int port;
+    private String projectName;
 
     private ObjectMapper objectMapper = getObjectMapper();
 
@@ -31,8 +34,20 @@ public class TesterumApiServiceLocator {
         return new TesterumApiServiceLocator(testerumPort);
     }
 
+    public void setCurrentProject(String projectName) {
+        this.projectName = projectName;
+    }
+
     public ProjectApi getProjectApi() {
-        return getFeignBuilder().target(ProjectApi.class, getBaseUrl() + "/projects");
+        return getFeignBuilder().target(ProjectApi.class, getBaseUrl());
+    }
+
+    public DemoApi getDemoApi() {
+        return getFeignBuilder().target(DemoApi.class, getBaseUrl());
+    }
+
+    public FeatureApi getFeatureApi() {
+        return getFeignBuilder().target(FeatureApi.class, getBaseUrl());
     }
 
 //====== Private Methods =========================================
@@ -42,6 +57,7 @@ public class TesterumApiServiceLocator {
                         new RequestInterceptor() {
                             public void apply(RequestTemplate requestTemplate) {
                                 requestTemplate.header("Content-Type", "application/json");
+                                requestTemplate.header("X-Testerum-Project", projectName);
                             }
                         }
                     )
@@ -65,4 +81,6 @@ public class TesterumApiServiceLocator {
 
         return objectMapper;
     }
+
+
 }

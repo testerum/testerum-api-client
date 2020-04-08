@@ -3,14 +3,17 @@ package com.testerum.api_client.api.project;
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.testerum.api_client.TesterumApiServiceLocator;
+import com.testerum.api_client.infrastructure.TesterumApiInfrastructure;
 import com.testerum.model.home.CreateProjectRequest;
 import com.testerum.model.home.Project;
 import java.util.List;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class ProjectApiTest {
 
-    TesterumApiServiceLocator serviceLocator = TesterumApiServiceLocator.getInstance(9998);
+    private TesterumApiServiceLocator serviceLocator = TesterumApiInfrastructure.getTesterumApiServiceLocator();
 
     @Test
     void getProjects() {
