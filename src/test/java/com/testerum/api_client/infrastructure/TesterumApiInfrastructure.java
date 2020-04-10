@@ -4,7 +4,7 @@ import com.testerum.api_client.TesterumApiServiceLocator;
 
 public class TesterumApiInfrastructure {
 
-    private  static TesterumApiServiceLocator serviceLocator = TesterumApiServiceLocator.getInstance(9998);
+    private  static TesterumApiServiceLocator serviceLocator = TesterumApiServiceLocator.getInstance(9999);
 
     public static TesterumApiServiceLocator getTesterumApiServiceLocator () {
         return serviceLocator;

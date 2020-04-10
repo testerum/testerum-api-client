@@ -1,5 +1,7 @@
 package com.testerum.api_client;
 
+import static com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES;
+
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.guava.GuavaModule;
@@ -8,8 +10,6 @@ import com.fasterxml.jackson.module.afterburner.AfterburnerModule;
 import com.testerum.api_client.api.demo.DemoApi;
 import com.testerum.api_client.api.features.FeatureApi;
 import com.testerum.api_client.api.project.ProjectApi;
-import com.testerum.model.home.CreateProjectRequest;
-import com.testerum.model.home.Project;
 import feign.Feign;
 import feign.Feign.Builder;
 import feign.RequestInterceptor;
@@ -26,7 +26,7 @@ public class TesterumApiServiceLocator {
 
     private ObjectMapper objectMapper = getObjectMapper();
 
-    private TesterumApiServiceLocator(int port){
+    private TesterumApiServiceLocator(int port) {
         this.port = port;
     }
 
@@ -50,7 +50,7 @@ public class TesterumApiServiceLocator {
         return getFeignBuilder().target(FeatureApi.class, getBaseUrl());
     }
 
-//====== Private Methods =========================================
+    //====== Private Methods =========================================
     private Builder getFeignBuilder() {
         return Feign.builder()
                     .requestInterceptor(
@@ -77,10 +77,9 @@ public class TesterumApiServiceLocator {
         objectMapper.registerModule(new GuavaModule());
 
         objectMapper.disable(DeserializationFeature.ADJUST_DATES_TO_CONTEXT_TIME_ZONE);
-        objectMapper.enable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+        objectMapper.configure(FAIL_ON_UNKNOWN_PROPERTIES, false);
 
         return objectMapper;
     }
-
 
 }
