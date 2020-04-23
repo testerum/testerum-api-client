@@ -10,6 +10,7 @@ import com.fasterxml.jackson.module.afterburner.AfterburnerModule;
 import com.testerum.api_client.api.demo.DemoApi;
 import com.testerum.api_client.api.features.FeatureApi;
 import com.testerum.api_client.api.project.ProjectApi;
+import com.testerum.api_client.api.tests.TestsApi;
 import feign.Feign;
 import feign.Feign.Builder;
 import feign.RequestInterceptor;
@@ -48,6 +49,10 @@ public class TesterumApiServiceLocator {
 
     public FeatureApi getFeatureApi() {
         return getFeignBuilder().target(FeatureApi.class, getBaseUrl());
+    }
+
+    public TestsApi getTestApi() {
+        return getFeignBuilder().target(TestsApi.class, getBaseUrl());
     }
 
     //====== Private Methods =========================================
