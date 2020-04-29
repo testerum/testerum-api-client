@@ -23,7 +23,7 @@ public class TesterumApiServiceLocator {
 
     private String host = "http://localhost";
     private int port;
-    private String projectName;
+    private String projectPath;
 
     private ObjectMapper objectMapper = getObjectMapper();
 
@@ -35,8 +35,8 @@ public class TesterumApiServiceLocator {
         return new TesterumApiServiceLocator(testerumPort);
     }
 
-    public void setCurrentProject(String projectName) {
-        this.projectName = projectName;
+    public void setCurrentProject(String projectPath) {
+        this.projectPath = projectPath;
     }
 
     public ProjectApi getProjectApi() {
@@ -62,7 +62,7 @@ public class TesterumApiServiceLocator {
                         new RequestInterceptor() {
                             public void apply(RequestTemplate requestTemplate) {
                                 requestTemplate.header("Content-Type", "application/json");
-                                requestTemplate.header("X-Testerum-Project", projectName);
+                                requestTemplate.header("X-Testerum-Project", projectPath);
                             }
                         }
                     )

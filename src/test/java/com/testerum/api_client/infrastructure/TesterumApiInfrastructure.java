@@ -11,6 +11,7 @@ public class TesterumApiInfrastructure {
 
     public static String TEST_PROJECT_LOCATION = "c:\\programing\\workspace\\testerum-api-client\\testerum_projects";
     public static String TEMPORARY_PROJECT_NAME = "TempProject";
+    public static String TESTERUM_INTEGRATION_TESTS = "c:\\programing\\workspace\\testerum\\integration-tests\\tests";
 
     private static TesterumApiServiceLocator serviceLocator = TesterumApiServiceLocator.getInstance(9999);
 
